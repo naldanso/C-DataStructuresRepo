@@ -4,8 +4,7 @@
 
 int main(){
     printf("initializing singly linked list\n");
-    singleLinkedList* list1 = (singleLinkedList*)malloc(sizeof(singleLinkedList));
-    printf("list1 initialized\n\n");
+    singleLinkedList* list1 = initializeList();
 
     printf("calling createData\n");
     createData(5, list1);

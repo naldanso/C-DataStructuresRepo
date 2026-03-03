@@ -13,6 +13,9 @@ typedef struct singleLinkedList {
   int size;
 } singleLinkedList;
 
+//initializes a singly linked list
+singleLinkedList* initializeList();
+
 //creates a node
 void createData(const int num, singleLinkedList* list);
 

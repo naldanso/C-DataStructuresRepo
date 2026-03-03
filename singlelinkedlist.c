@@ -6,6 +6,15 @@
  * singlelinkedlist.h.
  */
 
+//initializes a singly linked list
+singleLinkedList* initializeList(){
+    singleLinkedList* list = (singleLinkedList*)malloc(sizeof(singleLinkedList));
+
+    list->head = NULL;
+    list->size = 0;
+    printf("list initialized with head = NULL, size = %d\n\n", list->size);
+    return list;
+}
 //creates a node
 void createData(const int num, singleLinkedList* list){
     //edge case: empty list
