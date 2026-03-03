@@ -14,18 +14,18 @@ typedef struct singleLinkedList {
 } singleLinkedList;
 
 //creates a node
-void createData(int num, singleLinkedList list);
+void createData(const int num, singleLinkedList* list);
 
 //retrieves data at given index
-int getData(int num, singleLinkedList list);
+int getData(const int num, singleLinkedList* list);
 
 //updates data at given index
-void setData(int num, int pos, singleLinkedList list);
+void setData(const int num, const int pos, singleLinkedList* list);
 
 //deletes a node at a given index
-void deleteData(int num, singleLinkedList list);
+void deleteData(const int num, singleLinkedList* list);
 
 //frees up memory allocated by the list
-void destroyList(singleLinkedList list);
+void destroyList(singleLinkedList* list);
 
 #endif
