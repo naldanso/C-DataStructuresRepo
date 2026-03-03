@@ -61,6 +61,12 @@ void setData(const int num, const int pos, singleLinkedList* list){
     Node* ptr = list->head;
     int i = 0;
 
+    //check that index is in bounds of list size
+    if(pos < 0 || pos >= list->size){
+        printf("invalid index\n\n");
+        return;
+    }
+
     while(ptr != NULL){
         if(i == pos){
             ptr->data = num;
@@ -68,6 +74,7 @@ void setData(const int num, const int pos, singleLinkedList* list){
             return;
         }
         ptr = ptr->next;
+        i++;
     }
 }
 
