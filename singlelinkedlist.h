@@ -20,7 +20,7 @@ singleLinkedList* initializeList();
 void createData(const int num, singleLinkedList* list);
 
 //retrieves data at given index
-int getData(const int pos, singleLinkedList* list);
+int getData(const int pos, const singleLinkedList* const list);
 
 //updates data at given index
 void setData(const int num, const int pos, singleLinkedList* list);

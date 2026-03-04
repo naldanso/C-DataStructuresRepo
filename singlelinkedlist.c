@@ -41,7 +41,7 @@ void createData(const int num, singleLinkedList* list){
 }
 
 //retrieves data at given index
-int getData(const int pos, singleLinkedList* list){
+int getData(const int pos, const singleLinkedList* const list){
     Node* ptr = list->head;
     int i = 0;
 
