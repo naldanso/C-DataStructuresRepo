@@ -41,15 +41,17 @@ void createData(const int num, singleLinkedList* list){
 }
 
 //retrieves data at given index
-int getData(const int num, singleLinkedList* list){
+int getData(const int pos, singleLinkedList* list){
     Node* ptr = list->head;
+    int i = 0;
 
     while(ptr != NULL){
-        if(ptr->data == num){
+        if(i == pos){
             printf("retrieved %d \n\n", ptr->data);
             return ptr->data;
         }
         ptr = ptr->next;
+        i++;
     }
     //no data was found
     printf("getData passed, but no data was found\n\n");
@@ -79,17 +81,24 @@ void setData(const int num, const int pos, singleLinkedList* list){
 }
 
 //deletes a node at a given index
-void deleteData(const int num, singleLinkedList* list){
+void deleteData(const int pos, singleLinkedList* list){
     //edge case: empty list
     if(list->size == 0){
         printf("list is empty\n\n");
         return;
     }
 
+    //bounds checking
+    if(pos < 0 || pos >= list->size){
+        printf("invalid index; either  too small or too big");
+        return;
+    }
+
     Node* curr = list->head;
+    int i = 0;
 
     //edge case: beginning of list
-    if(curr->data == num){
+    if(i == pos){
         list->head = curr->next;
         free(curr);
         list->size--;
@@ -99,9 +108,10 @@ void deleteData(const int num, singleLinkedList* list){
 
     curr = curr->next;
     Node* prev = list->head;
-    
+    i++;
+
     while(curr != NULL){
-        if(curr->data == num){
+        if(i == pos){
             //edge case: end of list
             if(curr->next == NULL){
                 prev->next = NULL;
@@ -120,6 +130,7 @@ void deleteData(const int num, singleLinkedList* list){
             }
         }
         curr = curr->next;
+        i++;
     }
     printf("deleteData passed, but nothing deleted\n\n");
 }
@@ -135,4 +146,20 @@ void destroyList(singleLinkedList* list){
     }
     free(list);
     printf("destroyList passed\n\n");
+}
+
+void displayList(singleLinkedList* list){
+    Node* curr = list->head;
+
+    printf("current list:\n");
+
+    while(curr != NULL){
+        printf("%d->", curr->data);
+        curr = curr->next;
+    }
+
+    //checking to ensure the end of the list is NULL
+    if(curr == NULL){
+        printf("NULL\n\n");
+    }
 }

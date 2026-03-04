@@ -20,15 +20,17 @@ singleLinkedList* initializeList();
 void createData(const int num, singleLinkedList* list);
 
 //retrieves data at given index
-int getData(const int num, singleLinkedList* list);
+int getData(const int pos, singleLinkedList* list);
 
 //updates data at given index
 void setData(const int num, const int pos, singleLinkedList* list);
 
 //deletes a node at a given index
-void deleteData(const int num, singleLinkedList* list);
+void deleteData(const int pos, singleLinkedList* list);
 
 //frees up memory allocated by the list
 void destroyList(singleLinkedList* list);
 
+//displays the contents of the list in text form
+void displayList(singleLinkedList* list);
 #endif
