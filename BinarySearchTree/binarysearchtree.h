@@ -23,15 +23,15 @@ void initializeTree(BST* tree);
 void destroyTree(BST* tree);
 
 //create tree node
-void addNode(int data, BST* tree);
+void addNode(const int data, BST* tree);
 
 //get data from tree
-int getData(BST* tree);
+int getData(const int data, const BST* const tree);
 
 //update tree node
-void setData(BST* tree);
+void setData(const int data, BST* tree);
 
 //delete node from tree
-void deleteData(BST* tree);
+void deleteData(const int data, BST* tree);
 
 #endif
