@@ -17,25 +17,21 @@ typedef struct BST {
 } BST;
 
 //initializes a tree
-void initializeTree(BST* tree){
-    tree = (BST*)malloc(sizeof(BST));
-    tree->root = NULL;
-    tree-size = 0;
-    
-    assert(tree->root == NULL);
-    assert(tree->size == 0);
-
-    printf("list initialized with root = NULL, size = %d", list->size);
-}
+void initializeTree(BST* tree);
 
 //destroys a tree
+void destroyTree(BST* tree);
 
 //create tree node
+void addNode(int data, BST* tree);
 
 //get data from tree
+int getData(BST* tree);
 
 //update tree node
+void setData(BST* tree);
 
 //delete node from tree
+void deleteData(BST* tree);
 
 #endif
