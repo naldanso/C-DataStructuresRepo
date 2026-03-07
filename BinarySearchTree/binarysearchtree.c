@@ -101,12 +101,13 @@ void addNode(const int num, BST* tree){
 
 //get data from tree
 int getData(const int num, const BST* const tree){
+    //TODO
     return 0;
 }
 
 //delete node from tree
 void deleteData(const int num, BST* tree){
-
+    //TODO
 }
 
 /* End of Main Function Section */
