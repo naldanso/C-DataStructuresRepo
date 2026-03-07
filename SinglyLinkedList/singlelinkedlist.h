@@ -33,4 +33,5 @@ void destroyList(singleLinkedList* list);
 
 //displays the contents of the list in text form
 void displayList(singleLinkedList* list);
+
 #endif
