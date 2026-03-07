@@ -1,9 +1,6 @@
 #ifndef BINARYSEARCHTREE_H_
 #define BINARYSEARCHTREE_H_
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <assert.h>
 
 typedef struct Node {
     int data;
@@ -16,8 +13,8 @@ typedef struct BST {
     int size;
 } BST;
 
-//initializes a tree
-void initializeTree(BST* tree);
+//returns an initialized tree
+BST* initializeTree();
 
 //destroys a tree
 void destroyTree(BST* tree);
@@ -31,6 +28,4 @@ int getData(const int num, const BST* const tree);
 //delete node from tree
 void deleteData(const int num, BST* tree);
 
-//helper for tree node insertion/retrieval
-Node* traverse(const int num, Node* node);
 #endif

@@ -1,30 +1,55 @@
+/* this is the file that implements
+ * binarysearchtree.h.
+ */
+
 #include "binarysearchtree.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
+/* Start of Helper Section */
+
+//helper for tree node insertion/retrieval
+Node* traverse(const int num, Node* node){
+
+}
+
+/* End of Helper Section */
+
+/* Start of Main Function Section */
 
 //initializes tree
-void initializeTree(BST* tree){
-    tree = (BST*)malloc(sizeof(BST));
-    tree->root = NULL;
-    tree->size = 0;
+BST* initializeTree(){
+    BST* tree = (BST*)calloc(1, sizeof(BST));
+    //tree->root = NULL;
+    //tree->size = 0;
     
     assert(tree->root == NULL);
     assert(tree->size == 0);
 
     printf("list initialized with root = NULL, size = %d", tree->size);
+    return tree;
 }
 
 //destroys a tree
 void destroyTree(BST* tree){
+    //error: tree itself is null
+    if(!tree){
+       printf("destroyTree: nothing to free\n\n"); 
+    }
+
     //edge case: tree is already empty
     if(!tree->root){
         free(tree);
-        tree = NULL;
     }
-    
-    //edge case: one node
+    //edge case: only root node
     else if(!tree->root->left || !tree->root->left){
         free(tree->root);
         tree->root = NULL;
     }
+
+    //TODO: implement subtree destruction
+
     tree = NULL;
     assert(tree == NULL);
 
@@ -83,3 +108,5 @@ int getData(const int num, const BST* const tree){
 void deleteData(const int num, BST* tree){
 
 }
+
+/* End of Main Function Section */
