@@ -53,14 +53,14 @@ void destroyTree(BST* tree){
     tree = NULL;
     assert(tree == NULL);
 
-    printf("tree successfully destroyed");
+    printf("destroyTree: tree successfully destroyed\n\n");
 }
 
 //create tree node
 void addNode(const int num, BST* tree){
     //error: uninitialized tree
     if(!tree){
-        printf("tree is uninitialized; returning");
+        printf("addNode: tree is uninitialized; returning\n\n");
         return;
     }
 
