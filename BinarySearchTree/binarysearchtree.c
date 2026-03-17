@@ -27,9 +27,10 @@ Node* addNodeHelper(const int num, Node* node, BST* tree){
     return node;
 }
 
-Node* getDataHelper(const int num, Node* node){
+int getDataHelper(const int num, Node* node){
     if(!node){
         printf("getData: value %d doesn't exist\n\n", num);
+        return -1;
     }
     //check left
     else if(num < node->data){
@@ -40,7 +41,7 @@ Node* getDataHelper(const int num, Node* node){
         return getDataHelper(num, node->right);
     }
     //found the data
-    return node;
+    return node->data;
 }
 /* End of Helper Section */
 
@@ -123,7 +124,7 @@ int getData(const int num, const BST* const tree){
         return 0;
     }
 
-    Node* answer = tree->root;
+    int answer = tree->root->data;
     //check left
     if(num < tree->root->data){
         answer = getDataHelper(num, tree->root->left);
@@ -133,10 +134,7 @@ int getData(const int num, const BST* const tree){
         answer = getDataHelper(num, tree->root->right);
     }
 
-    if(!answer){
-        return -1;
-    } 
-    return answer->data;
+    return answer;
 }
 
 //delete node from tree
