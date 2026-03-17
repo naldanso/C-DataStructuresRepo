@@ -7,6 +7,7 @@ int main(){
 
     srand(time(NULL));
 
+    //addNode test
     for(int i = 0; i < 10; i++){
         //numbers 1...20
         int num = rand() % 20;
@@ -14,5 +15,14 @@ int main(){
         addNode(num, tree1);
     }
 
+    //getData test
+    int fish = 0;
+    for(int i = 0; i < 10; i++){
+        //nums 1...20
+        int num = rand() % 20;
+        printf("retrieving %d... ", num);
+        fish = getData(num, tree1);
+        printf("retrieved %d\n\n", fish);
+    }
     return 0;
 }

@@ -8,37 +8,40 @@
 /* Start of Helper Section */
 
 //helper for tree node insertion/retrieval
-Node* traverse(const int num, Node* node, BST* tree){
+Node* addNodeHelper(const int num, Node* node, BST* tree){
+    if(!node){
+        node = (Node*)calloc(1, sizeof(Node));
+        node->data = num;
+        tree->size++;
+        return node;
+    }
+
     //check left
     if(num < node->data){
-        if(!node->left){
-            node->left = (Node*)calloc(1, sizeof(Node));
-            node->left->data = num;
-            tree->size++;
-            return node->left;
-        }
-        else{
-            node->left = traverse(num, node->left, tree);
-        }
+        node->left = addNodeHelper(num, node->left, tree);
     }
     //check right
-    if(num > node->data){
-        if(!node->right){
-            node->right = (Node*)calloc(1, sizeof(Node));
-            node->right->data = num;
-            tree->size++;
-            return node->right;
-        }
-        else{
-            node->right = traverse(num, node->right, tree);
-        }
+    else if(num > node->data){
+        node->right = addNodeHelper(num, node->right, tree);
     }
-    
-    //node already exists in tree
-    printf("value %d already exists in tree\n", num);
     return node;
 }
 
+Node* getDataHelper(const int num, Node* node){
+    if(!node){
+        printf("getData: value %d doesn't exist\n\n", num);
+    }
+    //check left
+    else if(num < node->data){
+        return getDataHelper(num, node->left);
+    }
+    //check right
+    else if(num > node->data){
+        return getDataHelper(num, node->right);
+    }
+    //found the data
+    return node;
+}
 /* End of Helper Section */
 
 /* Start of Main Function Section */
@@ -95,43 +98,45 @@ void addNode(const int num, BST* tree){
         tree->root->data = num;
         tree->size++;
     }
-    //tree root is not null 
-    else{
-        //left logic
-        if(num < tree->root->data){
-            //null case; simple malloc
-            if(!tree->root->left){
-                tree->root->left = (Node*)calloc(1, sizeof(Node));
-                tree->root->left->data = num;
-                tree->size++;
-            }
-            else{
-                //helper function
-                tree->root->left = traverse(num, tree->root->left, tree);
-            }
-        }
-        //right logic
-        if(num > tree->root->data){
-            //null case; simple malloc
-            if(!tree->root->right){
-                tree->root->right = (Node*)calloc(1, sizeof(Node));
-                tree->root->right->data = num;
-                tree->size++;
-            }
-            else{
-                //helper function
-                tree->root->right = traverse(num, tree->root->right, tree);
-            }
-        }
+    //check left
+    else if(num < tree->root->data){
+        tree->root->left = addNodeHelper(num, tree->root->left, tree);
+    }
+    //check right
+    else if(num > tree->root->data){
+        tree->root->right = addNodeHelper(num, tree->root->right, tree);
     }
 
-    printf("node with value %d added: tree size is now %d\n\n", num, tree->size);
+    printf("addNode: tree size is now %d\n\n", tree->size);
 }
 
 //get data from tree
 int getData(const int num, const BST* const tree){
-    //TODO
-    return 0;
+    //empty tree
+    if(!tree){
+        printf("getData: tree uninitialized");
+        return 0;
+    }
+    //empty root
+    if(!tree->root){
+        printf("getData: root is empty");
+        return 0;
+    }
+
+    Node* answer = tree->root;
+    //check left
+    if(num < tree->root->data){
+        answer = getDataHelper(num, tree->root->left);
+    }
+    //check right
+    else if(num > tree->root->data){
+        answer = getDataHelper(num, tree->root->right);
+    }
+
+    if(!answer){
+        return -1;
+    } 
+    return answer->data;
 }
 
 //delete node from tree
