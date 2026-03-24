@@ -98,12 +98,10 @@ void destroyTree(BST* tree){
     //delete root
     free(tree->root);
     tree->size--;
-    printf("tree size is now %d.\n",tree->size);
+    assert(tree->size == 0);
     free(tree);
     tree = NULL;
     assert(tree == NULL);
-    printf("asserting size is 0...\n");
-    assert(tree->size == 0);
 
     printf("destroyTree: tree successfully destroyed\n\n");
 }
