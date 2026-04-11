@@ -14,7 +14,6 @@ int main(){
         num = rand() % 101; //0...100
         insertNode(num, tree1);
     }
-
     printf("insertion tests passed\n\n");
 
     printf("running retrieval test...\n");
