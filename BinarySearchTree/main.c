@@ -14,6 +14,7 @@ int main(){
         printf("adding %d to tree...\n", num);
         addNode(num, tree1);
     }
+    printf("tree size is now %d.\n\n", tree1->size);
 
     //getData test
     int fish = 0;
@@ -24,5 +25,8 @@ int main(){
         fish = getData(num, tree1);
         printf("retrieved %d\n\n", fish);
     }
+
+    printf("destroying tree...\n");
+    destroyTree(tree1);
     return 0;
 }

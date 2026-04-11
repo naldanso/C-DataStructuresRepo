@@ -7,7 +7,7 @@
 
 /* Start of Helper Section */
 
-//helper for tree node insertion/retrieval
+//helper for tree node insertion
 Node* addNodeHelper(const int num, Node* node, BST* tree){
     if(!node){
         node = (Node*)calloc(1, sizeof(Node));
@@ -27,6 +27,7 @@ Node* addNodeHelper(const int num, Node* node, BST* tree){
     return node;
 }
 
+//helper for data retrieval
 int getDataHelper(const int num, Node* node){
     if(!node){
         printf("getData: value %d doesn't exist\n\n", num);
@@ -43,6 +44,20 @@ int getDataHelper(const int num, Node* node){
     //found the data
     return node->data;
 }
+
+//de-allocate tree using post-order traversal
+void destroyHelper(Node* node, BST* tree){
+   if(node->left){
+       destroyHelper(node->left, tree);
+   }
+   if(node->right){
+       destroyHelper(node->right, tree);
+   }
+   free(node);
+   tree->size--;
+   node = NULL;
+}
+
 /* End of Helper Section */
 
 /* Start of Main Function Section */
@@ -50,8 +65,6 @@ int getDataHelper(const int num, Node* node){
 //initializes tree
 BST* initializeTree(){
     BST* tree = (BST*)calloc(1, sizeof(BST));
-    //tree->root = NULL;
-    //tree->size = 0;
     
     assert(tree->root == NULL);
     assert(tree->size == 0);
@@ -65,20 +78,28 @@ void destroyTree(BST* tree){
     //error: tree itself is null
     if(!tree){
        printf("destroyTree: nothing to free\n\n"); 
+       return;
     }
-
-    //edge case: tree is already empty
+    //edge case: tree root is null
     if(!tree->root){
         free(tree);
+        tree = NULL;
+        tree->size = 0;
+        printf("destroyTree: tree deleted\n\n");
+        return;
     }
-    //edge case: only root node
-    else if(!tree->root->left || !tree->root->left){
-        free(tree->root);
-        tree->root = NULL;
+    if(tree->root->left){
+        destroyHelper(tree->root->left, tree);
     }
-
-    //TODO: implement subtree destruction
-
+    //check right
+    if(tree->root->right){
+        destroyHelper(tree->root->right, tree);
+    }
+    //delete root
+    free(tree->root);
+    tree->size--;
+    assert(tree->size == 0);
+    free(tree);
     tree = NULL;
     assert(tree == NULL);
 
