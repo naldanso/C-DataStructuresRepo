@@ -139,7 +139,25 @@ int getData(const int num, const BST* const tree){
 
 //delete node from tree
 void deleteData(const int num, BST* tree){
-    //TODO
+    //empty tree
+    if(!tree){
+        printf("deleteData: tree uninitialized\n\n");
+        return;
+    }
+    //empty root
+    if(!tree->root){
+        printf("deleteData: root is empty\n\n");
+        return;
+    }
+    //root is target
+    if(num == tree->root->data){
+        //single node in tree
+        if(!tree->root->left && !tree->root->right){
+            free(tree->root);
+            tree->root = NULL;
+            return;
+        }
+    }
 }
 
 /* End of Main Function Section */
