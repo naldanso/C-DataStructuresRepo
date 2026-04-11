@@ -1,6 +1,9 @@
 #ifndef AVLTREE_H
 #define AVLTREE_H
 
+#include <stdlib.h>
+#include <stdio.h>
+
 typedef struct Node {
     int data;
     struct Node* left;
@@ -9,8 +12,8 @@ typedef struct Node {
 } Node;
 
 typedef struct AVL {
-    Node* root;
-    int size;
+    Node* root; //root node of the tree
+    int size; //number of nodes in the tree
     int height;
 } AVL;
 
