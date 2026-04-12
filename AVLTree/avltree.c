@@ -38,6 +38,23 @@ int getNodeHelper(const int num, const Node* const node){ //helper for retrieval
     }
     return node->data; //found our data
 }
+
+Node* insertNodeHelper(const int num, Node* node, AVL* tree){
+    if(!node){
+        node = (Node*)calloc(1, sizeof(Node));
+        node-> data = num;
+        tree->size++;
+        return node;
+    }
+    if(num < node->data){
+        node->left = insertNodeHelper(num, node->left, tree);
+    }
+    else if(num > node->data){
+        node->right = insertNodeHelper(num, node->right, tree);
+    }
+
+    return node;
+}
 /************************
  * END OF HELPER SECTION 
  * **********************/ 
@@ -67,7 +84,7 @@ void destroyTree(AVL* tree){ //destroying with post-order traversal
 int getNode(const int num, const AVL* const tree){ //retrieves node of specified value
     if(!tree || !tree->root){ // tree or root doesn't exist
         printf("no tree to retrieve from; returning -1");
-        return -1;
+        return GET_ERROR;
     }
     if(num < tree->root->data){ //check left
        return getNodeHelper(num, tree->root->left);
@@ -80,7 +97,20 @@ int getNode(const int num, const AVL* const tree){ //retrieves node of specified
 }
 
 void insertNode(const int num, AVL* tree){ //inserts node of specified value
-    //TODO: insertion. also accounts for balance checking!
+    if(!tree){ //tree doesn't exist
+        printf("insertNode: no tree to insert \n\n");
+    }
+    if(!tree->root){ //first node to be inserted
+        tree->root = (Node*)calloc(1, sizeof(Node));
+        tree->root->data = num;
+        tree->size++;
+    }
+    if(num < tree->root->data){ //check left
+        tree->root->left = insertNodeHelper(num, tree->root->left, tree);
+    }
+    if(num > tree->root->data){ //check right
+        tree->root->right = insertNodeHelper(num, tree->root->right, tree);
+    }
 }
 
 /* END OF MAIN FUNCTIONS */ 
