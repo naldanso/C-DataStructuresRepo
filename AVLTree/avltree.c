@@ -39,6 +39,13 @@ int getNodeHelper(const int num, const Node* const node){ //helper for retrieval
     return node->data; //found our data
 }
 
+int getNodeHeight(Node* node){ //returns height of given node
+    if(!node){ //null is treated as -1; leaf nodes are height 0
+        return -1;
+    }
+    return node->height;
+}
+
 void updateHeight(Node* node){ //update height of given node
     int lHeight = node->left ? node->left->height : 0; //get height of subtrees
     int rHeight = node->right ? node->right->height : 0;
@@ -69,6 +76,7 @@ Node* insertNodeHelper(const int num, Node* node, AVL* tree){
     return node; //value already exists, or completed left/right check
 }
 
+
 /************************
  * END OF HELPER SECTION 
  * **********************/ 
@@ -77,6 +85,7 @@ Node* insertNodeHelper(const int num, Node* node, AVL* tree){
 /* ***************
  * MAIN FUNCTIONS
  * ***************/
+
 AVL* initialize(){ //initialize the tree
     return (AVL*)calloc(1, sizeof(AVL)); 
 }
@@ -127,6 +136,8 @@ void insertNode(const int num, AVL* tree){ //inserts node of specified value
     }
 
     updateHeight(tree->root);
+
+    //assert(abs(checkBalance) <= 1);
 }
 
 /* END OF MAIN FUNCTIONS */ 
