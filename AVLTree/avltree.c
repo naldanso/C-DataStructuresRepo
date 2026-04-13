@@ -40,20 +40,20 @@ int getNodeHelper(const int num, const Node* const node){ //helper for retrieval
 }
 
 Node* insertNodeHelper(const int num, Node* node, AVL* tree){
-    if(!node){
+    if(!node){ //value doesn't exist, create new node
         node = (Node*)calloc(1, sizeof(Node));
         node-> data = num;
         tree->size++;
         return node;
     }
-    if(num < node->data){
+    if(num < node->data){ //check left
         node->left = insertNodeHelper(num, node->left, tree);
     }
-    else if(num > node->data){
+    else if(num > node->data){ //check right
         node->right = insertNodeHelper(num, node->right, tree);
     }
 
-    return node;
+    return node; //value already exists, or completed left/right check
 }
 /************************
  * END OF HELPER SECTION 
