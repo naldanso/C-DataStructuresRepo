@@ -47,8 +47,8 @@ int getNodeHeight(Node* node){ //returns height of given node
 }
 
 void updateHeight(Node* node){ //update height of given node
-    int lHeight = node->left ? node->left->height : 0; //get height of subtrees
-    int rHeight = node->right ? node->right->height : 0;
+    int lHeight = getNodeHeight(node->left); //get height of subtrees
+    int rHeight = getNodeHeight(node->right);
 
     if(lHeight > rHeight){ //assign the max between both heights, or they're equal
         node->height = lHeight + 1;
@@ -56,6 +56,10 @@ void updateHeight(Node* node){ //update height of given node
     else{
         node->height = rHeight + 1;
     }
+}
+
+int checkBalance(Node* node){ //returns balance factor of given node
+    return getNodeHeight(node->left) - getNodeHeight(node->right);
 }
 
 Node* insertNodeHelper(const int num, Node* node, AVL* tree){
@@ -136,7 +140,12 @@ void insertNode(const int num, AVL* tree){ //inserts node of specified value
     }
 
     updateHeight(tree->root);
-
+    if(checkBalance(tree->root) > 1){ //left-heavy
+        //rebalance
+    }
+    else if(checkBalance(tree->root) < -1){ //right-heavy
+        //rebalance
+    }
     //assert(abs(checkBalance) <= 1);
 }
 
