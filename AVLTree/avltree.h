@@ -9,12 +9,12 @@ typedef struct Node {
     struct Node* left;
     struct Node* right;
     struct Node* parent;
+    int height; //height of given node in the tree
 } Node;
 
 typedef struct AVL {
     Node* root; //root node of the tree
     int size; //number of nodes in the tree
-    int height;
 } AVL;
 
 AVL* initialize(); //initializes tree
