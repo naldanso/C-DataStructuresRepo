@@ -39,6 +39,18 @@ int getNodeHelper(const int num, const Node* const node){ //helper for retrieval
     return node->data; //found our data
 }
 
+void updateHeight(Node* node){ //update height of given node
+    int lHeight = node->left ? node->left->height : 0; //get height of subtrees
+    int rHeight = node->right ? node->right->height : 0;
+
+    if(lHeight > rHeight){ //assign the max between both heights, or they're equal
+        node->height = lHeight + 1;
+    }
+    else{
+        node->height = rHeight + 1;
+    }
+}
+
 Node* insertNodeHelper(const int num, Node* node, AVL* tree){
     if(!node){ //value doesn't exist, create new node
         node = (Node*)calloc(1, sizeof(Node));
@@ -53,8 +65,10 @@ Node* insertNodeHelper(const int num, Node* node, AVL* tree){
         node->right = insertNodeHelper(num, node->right, tree);
     }
 
+    updateHeight(node); //update node's height since we recursed
     return node; //value already exists, or completed left/right check
 }
+
 /************************
  * END OF HELPER SECTION 
  * **********************/ 
@@ -108,9 +122,11 @@ void insertNode(const int num, AVL* tree){ //inserts node of specified value
     if(num < tree->root->data){ //check left
         tree->root->left = insertNodeHelper(num, tree->root->left, tree);
     }
-    if(num > tree->root->data){ //check right
+    else if(num > tree->root->data){ //check right
         tree->root->right = insertNodeHelper(num, tree->root->right, tree);
     }
+
+    updateHeight(tree->root);
 }
 
 /* END OF MAIN FUNCTIONS */ 
