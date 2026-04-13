@@ -62,6 +62,40 @@ int checkBalance(Node* node){ //returns balance factor of given node
     return getNodeHeight(node->left) - getNodeHeight(node->right);
 }
 
+Node* leftRotate(Node* node){ //right child becomes new "root"
+    Node* temp = node->right;
+    Node* temp2 = temp->left;
+    temp->left = node;
+    node->right = temp2;
+    return temp;
+}
+
+Node* rightRotate(Node* node){ //left child becomes new "root"
+    Node* temp = node->left;
+    Node* temp2 = temp->right;
+    temp->right = node;
+    node->left = temp2;
+    return temp;
+}
+
+Node* rebalance(Node* node){ //rebalances given node
+    int balance = checkBalance(node);
+    if(balance > 1){ //left-heavy
+       if(checkBalance(node->left) < 0){ //left-right
+           node->left = leftRotate(node->left);
+       }
+       return rightRotate(node);
+   }
+   else if(balance < -1){ //right-heavy
+       if(checkBalance(node->right) > 0){ //right-left 
+           node->right = rightRotate(node->right);
+       }
+       return leftRotate(node);
+   }
+
+   return node;
+}
+
 Node* insertNodeHelper(const int num, Node* node, AVL* tree){
     if(!node){ //value doesn't exist, create new node
         node = (Node*)calloc(1, sizeof(Node));
@@ -69,14 +103,17 @@ Node* insertNodeHelper(const int num, Node* node, AVL* tree){
         tree->size++;
         return node;
     }
-    if(num < node->data){ //check left
+    if(num < node->data){ //check left and rebalance
         node->left = insertNodeHelper(num, node->left, tree);
+        updateHeight(node->left);
+        node->left = rebalance(node->left);
     }
-    else if(num > node->data){ //check right
+    else if(num > node->data){ //check right and rebalance
         node->right = insertNodeHelper(num, node->right, tree);
+        updateHeight(node->right);
+        node->right = rebalance(node->right);
     }
 
-    updateHeight(node); //update node's height since we recursed
     return node; //value already exists, or completed left/right check
 }
 
@@ -126,11 +163,13 @@ int getNode(const int num, const AVL* const tree){ //retrieves node of specified
 void insertNode(const int num, AVL* tree){ //inserts node of specified value
     if(!tree){ //tree doesn't exist
         printf("insertNode: no tree to insert \n\n");
+        return;
     }
     if(!tree->root){ //first node to be inserted
         tree->root = (Node*)calloc(1, sizeof(Node));
         tree->root->data = num;
         tree->size++;
+        return;
     }
     if(num < tree->root->data){ //check left
         tree->root->left = insertNodeHelper(num, tree->root->left, tree);
@@ -139,14 +178,13 @@ void insertNode(const int num, AVL* tree){ //inserts node of specified value
         tree->root->right = insertNodeHelper(num, tree->root->right, tree);
     }
 
-    updateHeight(tree->root);
-    if(checkBalance(tree->root) > 1){ //left-heavy
-        //rebalance
-    }
-    else if(checkBalance(tree->root) < -1){ //right-heavy
-        //rebalance
-    }
-    //assert(abs(checkBalance) <= 1);
+    //printf("updating root height...\n\n");
+    updateHeight(tree->root); //balance tree
+
+    //printf("rebalancing from root...\n\n");
+    tree->root = rebalance(tree->root);
+
+    assert(abs(checkBalance(tree->root) <= 1)); //test case
 }
 
 /* END OF MAIN FUNCTIONS */ 
