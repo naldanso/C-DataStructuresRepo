@@ -1,5 +1,13 @@
 #include "splaytree.h"
 #include <assert.h>
+/****************
+ * CONSTANTS
+ * *************/
+int GET_ERROR = -1;
+
+/********************
+ * END OF CONSTANTS
+ * *****************/
 
 /********************
  * HELPER FUNCTIONS
@@ -77,7 +85,8 @@ void destroyTree(Splay* tree){ //de-allocates using postorder traversal
 
     free(tree->root); //free memory and dock pointers
     tree->size--;
-    tree->root = tree = NULL;
+    tree->root = NULL;
+    tree = NULL;
     assert(tree->size == 0);
 }
 
@@ -87,7 +96,7 @@ int get(const int num, const Splay* const tree){ //retrieval function
     }
 
     if(num < tree->root->key){ //check left
-        return getHelper(num, tree);
+        return getHelper(num, tree->root->left);
     }
     if(num > tree->root->key){ //check right
         return getHelper(num, tree->root->right);
