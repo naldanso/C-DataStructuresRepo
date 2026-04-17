@@ -106,20 +106,20 @@ int get(const int num, const Splay* const tree){ //retrieval function
 }
 
 void insert(const int num, Splay* tree){ //insert function
-    if(!tree){
+    if(!tree){ //no tree found
         return;
     }
 
-    if(!tree->root){
+    if(!tree->root){ //no root exists; insert and exit
         tree->root = (Node*)calloc(1, sizeof(Node));
         tree->size++;
         tree->root->key = num;
         return;
     }
-    if(num < tree->root->key){
+    if(num < tree->root->key){ //check left
         tree->root->left = insertHelper(num, tree->root->left, tree);
     }
-    if(num > tree->root->key){
+    if(num > tree->root->key){ //check right
         tree->root->right = insertHelper(num, tree->root->right, tree);
     }
 
