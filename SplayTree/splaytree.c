@@ -42,7 +42,7 @@ int getHelper(const int num, const Node* const node){ //retrieval helper
 
 Node* insertHelper(const int num, Node* node, Splay* tree){
     if(!node){ //hit null, insert node
-        node = (Node*)calloc(1, sizeof(node));
+        node = (Node*)calloc(1, sizeof(Node));
         node->key = num;
         tree->size++;
         return node;
