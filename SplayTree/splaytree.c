@@ -72,7 +72,7 @@ Splay* initialize(){ //initializes tree
 }
 
 void destroyTree(Splay* tree){ //de-allocates using postorder traversal
-    if(!tree || !tree->root){
+    if(!tree || !tree->root){ //tree doesn't exist or is already de-allocated
         return;
     }
 
@@ -86,8 +86,8 @@ void destroyTree(Splay* tree){ //de-allocates using postorder traversal
     free(tree->root); //free memory and dock pointers
     tree->size--;
     tree->root = NULL;
-    tree = NULL;
     assert(tree->size == 0);
+    tree = NULL;
 }
 
 int get(const int num, const Splay* const tree){ //retrieval function
