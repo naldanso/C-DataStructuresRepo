@@ -3,7 +3,7 @@
 /****************
  * CONSTANTS
  * *************/
-int GET_ERROR = -1;
+int GET_ERROR = -1; //sentinel value for nonexistent key
 
 /********************
  * END OF CONSTANTS
