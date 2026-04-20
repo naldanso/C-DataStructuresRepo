@@ -12,24 +12,30 @@ int GET_ERROR = -1; //sentinel value for nonexistent key
 /********************
  * HELPER FUNCTIONS
  * ******************/
-Node* leftRotate(Node* node){ //left child becomes sub-root
+Node* zag(Node* node){ //left rotation
     Node* y = node->right;
     node->right = y->left;
     y->left = node;
 
+    y->parent = node->parent;
+    node->parent = y;
+
     return y;
 }
 
-Node* zig(Node* node){ //right child becomes root
+Node* zig(Node* node){ //right rotation
     Node* y = node->left;
     node->left = y->right;
-    y->left = node;
+    y->right = node;
+
+    y->parent = node->parent;
+    node->parent = y;
 
     return y;
 }
 
-Node* splay(Node* node){ //the splaying mechanism
-    if(node->parent == NULL){ //node is the tree root
+Node* splay(Node* target){ //the splaying mechanism
+    if(target->parent == NULL){ //node is the tree root
         return node;
     }
 }
@@ -142,7 +148,7 @@ void insert(const int num, Splay* tree){ //insert function
     if(num < tree->root->key){ //check left
         tree->root->left = insertHelper(num, tree->root, tree->root->left, tree);
     }
-    if(num > tree->root->key){ //check right
+    else if(num > tree->root->key){ //check right
         tree->root->right = insertHelper(num, tree->root, tree->root->right, tree);
     }
 }
