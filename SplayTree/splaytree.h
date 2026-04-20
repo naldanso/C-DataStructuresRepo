@@ -8,6 +8,7 @@ typedef struct Node {
     int key;
     struct Node* left;
     struct Node* right;
+    struct Node* parent;
 } Node;
 
 typedef struct Splay {

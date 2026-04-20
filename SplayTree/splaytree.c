@@ -12,6 +12,25 @@ int GET_ERROR = -1; //sentinel value for nonexistent key
 /********************
  * HELPER FUNCTIONS
  * ******************/
+Node* zag(Node* node){ //zag = left rotate
+    Node* y = node->right;
+    node->right = y->left;
+    y->left = node;
+
+    return y;
+}
+
+Node* zig(Node* node){ //zig = right rotate
+    Node* y = node->left;
+    node->left = y->right;
+    y->left = node;
+
+    return y;
+}
+
+Node* splay(Node* root){
+
+}
 void destroyHelper(Node* node, Splay* tree){ //helper for de-allocation
     if(node->left){ //check left
         destroyHelper(node->left, tree);
