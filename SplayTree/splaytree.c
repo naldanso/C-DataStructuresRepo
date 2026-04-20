@@ -34,17 +34,12 @@ Node* zig(Node* node){ //right rotation
     return y;
 }
 
-Node* splay(Node* target){ //the splaying mechanism
-    if(target->parent == NULL){ //node is the tree root
-        return node;
+Node* splay(Node* node, const int num){ //the splaying mechanism
+    if(node->parent == NULL){ //this is the root
+        if(node->key == num){
+            return node;
+        }
     }
-    if(target->parent->parent == NULL){ //target is the child of root
-
-    }    
-    else{ //we know it's a grandchild
-
-    }
-
 }
 
 void destroyHelper(Node* node, Splay* tree){ //helper for de-allocation
@@ -159,6 +154,8 @@ void insert(const int num, Splay* tree){ //insert function
     else if(num > tree->root->key){ //check right
         tree->root->right = insertHelper(num, tree->root, tree->root->right, tree);
     }
+    
+    tree->root = splay(tree->root, num);
 }
 /************************
  * END OF MAIN FUNCTIONS
