@@ -12,7 +12,7 @@ int GET_ERROR = -1; //sentinel value for nonexistent key
 /********************
  * HELPER FUNCTIONS
  * ******************/
-Node* zag(Node* node){ //zag = left rotate
+Node* leftRotate(Node* node){ //left child becomes sub-root
     Node* y = node->right;
     node->right = y->left;
     y->left = node;
@@ -20,7 +20,7 @@ Node* zag(Node* node){ //zag = left rotate
     return y;
 }
 
-Node* zig(Node* node){ //zig = right rotate
+Node* zig(Node* node){ //right child becomes root
     Node* y = node->left;
     node->left = y->right;
     y->left = node;
@@ -28,8 +28,10 @@ Node* zig(Node* node){ //zig = right rotate
     return y;
 }
 
-Node* splay(Node* root){
-
+Node* splay(Node* node){ //the splaying mechanism
+    if(node->parent == NULL){ //node is the tree root
+        return node;
+    }
 }
 void destroyHelper(Node* node, Splay* tree){ //helper for de-allocation
     if(node->left){ //check left
@@ -59,19 +61,20 @@ int getHelper(const int num, const Node* const node){ //retrieval helper
     return node->key; //data was found
 }
 
-Node* insertHelper(const int num, Node* node, Splay* tree){
+Node* insertHelper(const int num, Node* parent, Node* node, Splay* tree){
     if(!node){ //hit null, insert node
         node = (Node*)calloc(1, sizeof(Node));
         node->key = num;
+        node->parent = parent;
         tree->size++;
         return node;
     }
 
     if(num < node->key){ //check left
-        node->left = insertHelper(num, node->left, tree);
+        node->left = insertHelper(num, node, node->left, tree);
     }
     if(num > node->key){ //check right
-        node->right = insertHelper(num, node->right, tree);
+        node->right = insertHelper(num, node, node->right, tree);
     }
 
     return node; //returning the node, but really returning the subtree
@@ -133,15 +136,15 @@ void insert(const int num, Splay* tree){ //insert function
         tree->root = (Node*)calloc(1, sizeof(Node));
         tree->size++;
         tree->root->key = num;
+        tree->root->parent = NULL;
         return;
     }
     if(num < tree->root->key){ //check left
-        tree->root->left = insertHelper(num, tree->root->left, tree);
+        tree->root->left = insertHelper(num, tree->root, tree->root->left, tree);
     }
     if(num > tree->root->key){ //check right
-        tree->root->right = insertHelper(num, tree->root->right, tree);
+        tree->root->right = insertHelper(num, tree->root, tree->root->right, tree);
     }
-
 }
 /************************
  * END OF MAIN FUNCTIONS
