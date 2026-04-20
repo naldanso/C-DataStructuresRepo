@@ -38,7 +38,15 @@ Node* splay(Node* target){ //the splaying mechanism
     if(target->parent == NULL){ //node is the tree root
         return node;
     }
+    if(target->parent->parent == NULL){ //target is the child of root
+
+    }    
+    else{ //we know it's a grandchild
+
+    }
+
 }
+
 void destroyHelper(Node* node, Splay* tree){ //helper for de-allocation
     if(node->left){ //check left
         destroyHelper(node->left, tree);
